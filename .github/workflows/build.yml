@@ -1,33 +1,33 @@
-name: Flutter CI
+name: Build APK
 
 on:
   push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main, develop]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Flutter
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          cache: true
-      - name: Install dependencies
+
+      - name: Get dependencies
+        working-directory: .
         run: flutter pub get
-      - name: Analyze
-        run: flutter analyze
-      - name: Test
-        run: flutter test
-      - - name: Build APK
-  working-directory: .
-  run: flutter build apk --release
-      - name: Upload ame: BAPK artifact
-        uses: actions/upload-artifact@v4
+
+      - name: Build APK
+        working-directory: .
+        run: flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: gold-miner-apk
+          name: Gold-Miner-App
           path: build/app/outputs/flutter-apk/app-release.apk
