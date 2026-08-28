@@ -1,0 +1,24 @@
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/ss-44mp3/Gold.git
+git push -u origin main
+
+git switch -c develop main
+git push -u origin develop
+git switch develop
+git switch -c feature/my-feature
+git push -u origin feature/my-feature
+
+git switch develop
+git switch -c release/1.0.0
+git push -u origin release/1.0.0
+git switch main
+git switch -c hotfix/1.0.1
+git push -u origin hotfix/1.0.1
+
+git switch main
+git pull --ff-only origin main
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0

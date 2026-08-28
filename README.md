@@ -8,6 +8,7 @@
 - قاعدة SQLite تشمل `Sites` و`Tracks` و`TrackPoints` و`LayersSettings` و`AppSettings`.
 - شاشات أولية للخريطة والمواقع وإضافة موقع وتسجيل المسار والطبقات والإعدادات.
 - خط CI يبني APK ويرفعه كـ Artifact بعد الاختبارات.
+- خط Release يبني APK وينشئ GitHub Release تلقائيًا عند دفع Tag.
 
 ## التشغيل
 
@@ -34,6 +35,8 @@ flutter build apk --release
 - `release/*`: تجهيز إصدار.
 - `hotfix/*`: إصلاح عاجل للإصدار المستقر.
 
+الأوامر الكاملة موجودة في [git-commands.txt](git-commands.txt). لا توجد فروع wildcard فعلية في Git؛ الصيغة `feature/*` و`release/*` و`hotfix/*` هي قواعد تسمية للفروع.
+
 إنشاء ميزة جديدة:
 
 ```bash
@@ -47,6 +50,16 @@ git push -u origin feature/my-feature
 ## CI/CD
 
 الملف `.github/workflows/build.yml` يعمل عند كل push أو Pull Request إلى `main` أو `develop`. يقوم بتثبيت Flutter، وتشغيل `pub get` والتحليل والاختبارات، ثم يبني APK ويرفعه كـ `gold-miner-apk`.
+
+الملف `.github/workflows/release.yml` يعمل عند دفع Tag بصيغة `v*.*.*`، مثلًا:
+
+```bash
+git switch main
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+```
+
+بعدها ينشئ GitHub Release تلقائيًا ويرفق ملف APK.
 
 ## المستودع
 
