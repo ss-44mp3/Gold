@@ -1,0 +1,6 @@
+{
+  "sites": [],
+  "tracks": [],
+  "layersSettings": {"satellite": false, "topographic": true, "water": true},
+  "appSettings": {"darkMode": false, "distanceUnit": "km"}
+}

@@ -1,0 +1,38 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE Sites (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  latitude REAL,
+  longitude REAL,
+  notes TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Tracks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  started_at TEXT,
+  ended_at TEXT
+);
+
+CREATE TABLE TrackPoints (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  track_id INTEGER NOT NULL REFERENCES Tracks(id) ON DELETE CASCADE,
+  latitude REAL NOT NULL,
+  longitude REAL NOT NULL,
+  recorded_at TEXT NOT NULL
+);
+
+CREATE TABLE LayersSettings (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  satellite INTEGER NOT NULL DEFAULT 0,
+  topographic INTEGER NOT NULL DEFAULT 1,
+  water INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE AppSettings (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  dark_mode INTEGER NOT NULL DEFAULT 0,
+  distance_unit TEXT NOT NULL DEFAULT 'km'
+);
