@@ -18,6 +18,9 @@ jobs:
         with:
           channel: stable
 
+      - name: Generate Android project files
+        run: flutter create --platforms=android --project-name gold_miner_app .
+
       - name: Get dependencies
         working-directory: .
         run: flutter pub get
@@ -27,7 +30,7 @@ jobs:
         run: flutter build apk --release
 
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Gold-Miner-App
           path: build/app/outputs/flutter-apk/app-release.apk
